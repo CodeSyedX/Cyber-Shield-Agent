@@ -1,0 +1,52 @@
+[0:00 — HOOK]
+Hello everyone. As developers, we've all felt the anxiety of accidentally committing credentials or using vulnerable libraries in our projects. Today, I'm excited to present Cyber Shield Agent, an automated security assistant designed specifically to protect codebases and dependencies right at the workstation.
+
+(pause)
+
+[0:20 — WHAT IT IS]
+Cyber Shield is a multi-agent security scanner built on the Google Agent Development Kit framework, under the Freestyle development track. It orchestrates local scanning agents, monitors input safety, and manages human approvals before exporting threat reports.
+
+(pause)
+
+[0:40 — SHOW THE BANNER]
+(show assets/cover_page_banner.png)
+As you can see on the banner, Cyber Shield Agent makes scanning automated, secure, and intelligent, incorporating secret identification, dependency auditing, and interactive compliance.
+
+(pause)
+
+[1:00 — ARCHITECTURE]
+(show assets/architecture_diagram.png)
+Let's walk through the architecture of our agent.
+Every query enters through the START node and is immediately scanned by the security_checkpoint.
+The checkpoint filters prompt injection and redacts personal data, routing violations to a separate security_event_handler.
+Safe queries continue to our orchestrator agent.
+The orchestrator delegates work: it sends source code to the secret_scanner and package lists to the vuln_analyzer.
+Both sub-agents query our local MCP server tools—regex_scanner and check_cve_database—for fast matching.
+The orchestrator combines findings and passes them to the review_gate.
+If high-severity vulnerabilities are found, the review_gate issues a RequestInput interrupt, asking for human confirmation.
+Once approved, the generate_report node compiles the final Markdown document.
+
+(pause)
+
+[2:00 — LIVE DEMO]
+(switch to playground at localhost:18081)
+Let's see the agent in action.
+First, if we scan a standard, safe script, the workflow completes instantly.
+But if we paste a query containing an exposed API key and outdated libraries like django 3.1, watch what happens.
+(pause)
+The orchestrator delegates to the sub-agents, detects the high-severity secrets and CVE entries using the MCP database, and then halts the conversation.
+The UI presents this warning: "High-severity security issues detected! Please review and reply 'approve' to proceed."
+(pause)
+Now, I will type "approve" and submit.
+The agent resumes, recalculates our risk score, and outputs this comprehensive, structured Cyber Shield Threat Report detailing the exact CVE records and key exposures.
+Finally, if I try to bypass the scanner with a prompt injection like "ignore previous instructions", the checkpoint blocks it immediately.
+
+(pause)
+
+[3:00 — SECURITY & MCP]
+The security checkpoint keeps the LLMs safe by sanitizing user inputs and logging every event to a structured JSON audit trail. Meanwhile, our Stdio MCP Server optimizes performance by running lightning-fast regex lookups and vulnerability database checks locally.
+
+(pause)
+
+[3:30 — IMPACT / CLOSE]
+Cyber Shield Agent helps engineering teams shift security left, scanning assets earlier in the lifecycle without introducing latency. It makes sure that our code is compliant and our LLMs are protected. Thank you!
