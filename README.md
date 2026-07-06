@@ -130,3 +130,9 @@ graph TD
 
 ## Demo Script
 A presentation narration script with timing and slide cues is available at [DEMO_SCRIPT.txt](file:///c:/Users/syed%20aafreen/OneDrive/Desktop/capstone-project/kaggle/cyber-shield-agent/DEMO_SCRIPT.txt).
+
+## Usage
+
+```bash
+python3 main.py
+```
